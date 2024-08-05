@@ -7,8 +7,6 @@ import com.slack.api.methods.request.users.UsersConversationsRequest;
 import com.slack.api.methods.response.users.UsersConversationsResponse;
 import com.slack.api.model.ConversationType;
 import org.jsoup.Jsoup;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -26,22 +24,22 @@ public class SlackService {
     // Initialize an API Methods client with the given token
     // use private final to ensure that these "specific instances" stay constant inside the class
     // Initialize an API Methods client with the given token
-// use private final to ensure that these "specific instances" stay constant inside the class
+// Use private final to ensure that these "specific instances" stay constant inside the class
 
     private final Slack slack = Slack.getInstance(); // to initialize SLack object
     private final MethodsClient slackMethods = slack.methods(TOKEN);
-//TODO maybe can just make this pathvariable
 
 
-    //why i used string and also enclose the descripton in quotes
+
+//TODO when you utilize this, make sure to adjust your limit, i.e. say you have 100 channels, increase the limit
     public String getChannelsList(String userId) throws SlackApiException, IOException {
         UsersConversationsResponse response = slackMethods.usersConversations(UsersConversationsRequest.builder()
                 .user(userId)
                 .types(List.of(ConversationType.PUBLIC_CHANNEL, ConversationType.PRIVATE_CHANNEL))
-                .limit(10)
+                .limit(100)
                 .build());
 // ^ initially tried setting .exclude_archived(true) but it was not recognizing the method so will filter in stream api
-// Filter out archived channels and collect each channel's details as a string in a list
+
 
         // Define the header row
         String header = "channel_name,private_or_public,description";
@@ -65,7 +63,7 @@ public class SlackService {
         UsersConversationsResponse response = slackMethods.usersConversations(UsersConversationsRequest.builder()
                 .user(userId)
                 .types(List.of(ConversationType.PUBLIC_CHANNEL))
-                .limit(10)
+                .limit(100)
                 .build());
 
         return "/Open " + response.getChannels().stream()

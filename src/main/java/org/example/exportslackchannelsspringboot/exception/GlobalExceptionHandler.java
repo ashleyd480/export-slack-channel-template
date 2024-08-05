@@ -21,21 +21,24 @@ import java.io.IOException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
+//    method slackMethods.usersConversations may throw an IOException if there is an issue with the network communication or data transfer when making the API call; this was recommend to add in Slack API documentation
     @ExceptionHandler(IOException.class)
     public ResponseEntity<String> handleIOException(IOException e) {
-        // Log the exception if necessary
+
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("Service unavailable. Please try again later.");
     }
 
+    // Common Causes: Occurs when there is an error in making an API request to Slack, such as invalid parameters, authentication issues, or other bad requests.
     @ExceptionHandler(SlackApiException.class)
     public ResponseEntity<String> handleSlackApiException(SlackApiException e) {
-        // Log the exception if necessary
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request. Please check your parameters.");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There was error in making API request to Slack. Slack is Slacking off today.");
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGenericException(Exception e) {
-        // Log the exception if necessary
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An internal server error occurred. Please try again later.");
     }
 
