@@ -36,9 +36,9 @@ public class SlackController {
 
     //Open command can only be used to allow users to join pubilc channels
     @GetMapping("/join-channel-command")
-    public ResponseEntity<String> getFormattedChannels(@RequestParam String userId) throws SlackApiException, IOException {
+    public ResponseEntity<String> getFormattedChannelsCommand(@RequestParam String userId) throws SlackApiException, IOException {
         // Call the service method; global exception handler will catch any exceptions
-        String formattedChannels = slackService.getFormattedChannels(userId);
+        String formattedChannels = slackService.getFormattedChannelsCommand(userId);
         return ResponseEntity.ok(formattedChannels);
     }
 }

@@ -1,5 +1,4 @@
 package org.example.exportslackchannelsspringboot.service;
-
 import com.slack.api.Slack;
 import com.slack.api.methods.MethodsClient;
 import com.slack.api.methods.SlackApiException;
@@ -23,10 +22,10 @@ public class SlackService {
 
     // Initialize an API Methods client with the given token
     // use private final to ensure that these "specific instances" stay constant inside the class
-    // Initialize an API Methods client with the given token
 // Use private final to ensure that these "specific instances" stay constant inside the class
 
-    private final Slack slack = Slack.getInstance(); // to initialize SLack object
+    private final Slack slack = Slack.getInstance(); // to initialize SLack object; responsible for creating an instance of the Slack API client. This client is used to interact with Slack’s API.
+
     private final MethodsClient slackMethods = slack.methods(TOKEN);
 
 
@@ -36,7 +35,7 @@ public class SlackService {
         UsersConversationsResponse response = slackMethods.usersConversations(UsersConversationsRequest.builder()
                 .user(userId)
                 .types(List.of(ConversationType.PUBLIC_CHANNEL, ConversationType.PRIVATE_CHANNEL))
-                .limit(100)
+                .limit(10)
                 .build());
 // ^ initially tried setting .exclude_archived(true) but it was not recognizing the method so will filter in stream api
 
@@ -59,11 +58,11 @@ public class SlackService {
         return header + "\n" + dataRows;
     }
 
-    public String getFormattedChannels(String userId) throws IOException, SlackApiException {
+    public String getFormattedChannelsCommand(String userId) throws IOException, SlackApiException {
         UsersConversationsResponse response = slackMethods.usersConversations(UsersConversationsRequest.builder()
                 .user(userId)
                 .types(List.of(ConversationType.PUBLIC_CHANNEL))
-                .limit(100)
+                .limit(10)
                 .build());
 
         return "/Open " + response.getChannels().stream()
