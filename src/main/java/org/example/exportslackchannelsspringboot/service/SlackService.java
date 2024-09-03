@@ -35,7 +35,7 @@ public class SlackService {
         UsersConversationsResponse response = slackMethods.usersConversations(UsersConversationsRequest.builder()
                 .user(userId)
                 .types(List.of(ConversationType.PUBLIC_CHANNEL, ConversationType.PRIVATE_CHANNEL))
-                .limit(10)
+                .limit(200)
                 .build());
 // ^ initially tried setting .exclude_archived(true) but it was not recognizing the method so will filter in stream api
 

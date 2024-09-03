@@ -12,6 +12,8 @@ This mini-project was created in my 6th month of coding, using Java and Spring B
 
 Note: Due to the time constraint of less than 3 days to work on this, this mini-project is in an MVP (Minimum Viable Product) stage and serves as a functioning template to demonstrate the core functionality. It provides a template that can be expanded upon. 
 
+![Flow Diagram Screenshot](src/assets/flow-diagram.png)
+
 
 ---
 
